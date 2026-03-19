@@ -140,11 +140,12 @@ Repository Structure:
 
 
 data/       -> raw and cleaned datasets
+
 scripts/    -> data cleaning, feature engineering, modeling
+
 outputs/    -> model results and visualizations
 
-Author:
-Data analysis project developed as part of a portfolio focused on applied policy and governance data analysis.
+Author:Jagriti Premchandani
 
 Author
 Data analysis project developed as part of a portfolio focused on applied policy and governance data analysis.
