@@ -1,151 +1,66 @@
-# BBMP-Voter-Behavior-Analysis
-Analysis of BBMP voter survey data using R to examine how perceived councilor performance, trust ,and corruption influence re-voting intentions. 
+# BBMP Voter Behaviour Analysis
 
-Overview:
+Logistic regression analysis of 262 Bangalore voters, testing whether perceived corporator performance, trust, or corruption best predicts re-voting intention.
 
-This project analyzes voter perceptions and voting intentions in the BBMP municipal elections (Bangalore) using survey data. The goal is to examine how citizens’ perceptions of councillor performance and trust influence their likelihood of voting for the same candidate again.
-The analysis focuses on transforming raw survey responses into structured variables and applying a logistic regression model to explore relationships between perceived performance and re-voting intentions.
+## Key Finding
 
+Across three nested logistic regression models, **perceived corporator trustworthiness is the only robust, statistically significant predictor** of re-voting intention. Neither perceived service delivery performance nor corruption perception reaches significance once trust is in the model — and trust's effect holds even after adding demographic controls (age, gender, education) and party preference.
 
-Research Question:
+This suggests that in BBMP ward-level politics, voters are re-electing based on a relational judgment about the corporator's trustworthiness, not a scorecard evaluation of what got delivered.
 
-How do voter perceptions of councillor performance, trust, and corruption influence the probability of voting for the same corporator again?
+## Why This Matters
 
+Most models of local accountability assume voters reward performance or punish corruption. This dataset doesn't support that — trust in the individual corporator dominates both. That has implications for how urban governance research frames voter accountability at the ward level.
 
-Dataset:
+## Data
 
-The dataset comes from a voter perception survey conducted before the BBMP municipal elections.
-Key information collected includes:
-Voter demographics (age, gender, education)
-Perceptions of councillor performance across public services
-Trust and corruption ratings
-Voting intentions for the upcoming election
-After cleaning and feature engineering, the final dataset used in analysis contains 261 observations.
+Pre-election voter perception survey, Bangalore BBMP wards. After cleaning, **n = 262**.
 
+Collected: demographics (age, gender, education), perceived corporator performance across public services, trust and corruption ratings, and stated voting intention.
 
-Key Variables:
+## Variables
 
-Dependent Variable-
-revote
-Binary variable indicating whether a respondent would vote for the same corporator again.
-Independent Variables-
-performance_index:
-Composite index measuring perceived councillor performance across multiple public service areas.
+**Dependent variable**
+- `revote` — binary, would the respondent vote for the same corporator again
 
-trust_num:
-Numeric representation of perceived trustworthiness of the councillor.
+**Independent variables**
+- `performance_index` — composite index of perceived corporator performance across public service areas
+- `trust_num` — perceived trustworthiness of the specific ward corporator (single survey item)
+- `corrupt_num` — perceived corruption level
+- `party_preference` — party respondent is most likely to vote for
 
-corrupt_num:
-Numeric representation of perceived corruption level.
+**Controls**
+- `age`, `gender`, `education_qualification`
 
-party_preference:
-Party the respondent is most likely to vote for.
+## Results
 
-Control Variables-
-age,
-gender,
-education_qualification.
+**Model 1 (baseline: performance, trust, corruption)**
+Trust is the strongest predictor. Performance shows a weak positive association. Corruption is not significant.
 
-Methodology:
+**Model 2 (+ demographic controls)**
+Trust's effect remains strong and significant, indicating robustness. Demographic variables show no significant influence.
 
-The analysis follows these steps:
-#Data Cleaning
-#Standardizing column names
-#Handling missing values
-#Converting categorical variables into factors
-#Feature Engineering
-#Constructing performance_index
-#Converting trust and corruption ratings into numeric variables
+**Model 3 (+ party preference)**
+Model fit improves, but party preference introduces complete/quasi-complete separation due to sparse categories — coefficients for several party categories are unstable and not interpretable. Trust remains significant throughout.
 
-Model Summary
+## Limitations
 
-Three logistic regression models were estimated to understand the determinants of the outcome, with increasing levels of complexity and controls.
-Model 1: Baseline Model
+- Party preference categories are sparse enough to destabilize Model 3's coefficients; those estimates should not be read as reliable.
+- Cross-sectional survey data — the relationship is associational, not causal.
+- Single-item trust measure (`trust_num`) captures perceived trustworthiness of the specific corporator, not institutional trust in local government more broadly.
 
-The first model includes core perceptual variables:
+## Repository Structure
 
-Performance perception (performance_index)
+```
+data/     raw and cleaned datasets
+scripts/  data cleaning, feature engineering, modeling
+output/   model summaries and visualizations
+```
 
-Trust (trust_num)
+## Tools
 
-Corruption perception (corrupt_num)
+R — tidyverse, dplyr, ggplot2
 
-Purpose:
-To establish the direct relationship between key political perceptions and the outcome.
+## Author
 
-Key Insight:
-Trust emerges as the strongest predictor, while performance shows a weak positive association. Corruption does not have a significant effect.
-
-Model 2: Demographic Controls Added
-
-The second model extends Model 1 by including:
-
-Age groups
-
-Gender
-
-Education
-
-Purpose:
-To control for individual demographic characteristics and test whether the effects observed in Model 1 persist.
-
-Key Insight:
-The effect of trust remains strong and significant even after adding controls, indicating robustness. Demographic variables do not show significant influence.
-
-Model 3: Full Model with Political Preferences
-
-The final model includes:
-
-All variables from Model 2
-
-Party preference categories
-
-Purpose:
-To account for political alignment and examine whether party preference explains variation in the outcome.
-
-Key Insight:
-While model fit improves, the inclusion of party preference introduces estimation issues (complete/quasi-complete separation) due to sparse categories. As a result, coefficients for many party categories are unstable and not interpretable.
-
-Overall Conclusion
-
-Across all three models, trust consistently emerges as the only robust and statistically significant predictor of the outcome.
-
-Adding demographic and political variables does not meaningfully change this relationship, though the full model is affected by data limitations such as missing values and category sparsity
-
-
-
-Key insights include:
-
-#Voter perceptions of governance performance influence re-election support.
-#Trust and corruption perceptions also play a role in voter decisions.
-#Demographic factors such as age and education can affect voting intentions.
-#These findings illustrate how subjective perceptions of governance translate into electoral behaviour.
-
-Outputs:
-
-The repository includes:
-Logistic regression model summary
-Predicted probability plot for re-voting behaviour
-See the outputs/ folder.
-
-
-Tools Used:
-
-R
-tidyverse
-dplyr
-ggplot2
-
-Repository Structure:
-
-
-data/       -> raw and cleaned datasets
-
-scripts/    -> data cleaning, feature engineering, modeling
-
-outputs/    -> model results and visualizations
-
-Author:Jagriti Premchandani
-
-Author
-Data analysis project developed as part of a portfolio focused on applied policy and governance data analysis.
+Jagriti Premchandani — part of a research portfolio in applied political economy and governance data analysis.
