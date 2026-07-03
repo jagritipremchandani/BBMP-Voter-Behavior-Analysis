@@ -63,4 +63,4 @@ R tidyverse, dplyr, ggplot2
 
 ## Author
 
-Jagriti Premchandani part of a research portfolio in applied political economy and governance data analysis.
+Jagriti Premchandani
