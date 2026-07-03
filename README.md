@@ -1,4 +1,4 @@
-# BBMP-Voter-Behavior-Analyis
+# BBMP-Voter-Behavior-Analysis
 Analysis of BBMP voter survey data using R to examine how perceived councilor performance, trust ,and corruption influence re-voting intentions. 
 
 Overview:
